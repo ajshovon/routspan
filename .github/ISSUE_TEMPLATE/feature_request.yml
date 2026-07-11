@@ -1,0 +1,33 @@
+name: Feature request
+description: Suggest a new feature, or a new router/firmware to support
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What's the problem or gap?
+      description: What can't you do today that you'd like to?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+    validations:
+      required: false
+
+  - type: input
+    id: router-model
+    attributes:
+      label: Router model/firmware (if this is about device support)
+      placeholder: e.g. ZTE MF79, OLAX U90
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        If you're requesting support for a new router, the fastest path is capturing its
+        traffic yourself — see [`CONTRIBUTING.md`](../../CONTRIBUTING.md) and
+        [`docs/olax-m100-api.md`](../../docs/olax-m100-api.md) for the capture process.

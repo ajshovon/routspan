@@ -1,0 +1,55 @@
+name: routspan
+description: "Routspan — open-source admin app for pocket/MiFi routers. First target: OLAX M100 (ZTE-lineage firmware)."
+publish_to: "none"
+version: 0.1.0+1
+homepage: https://github.com/ajshovon/routspan
+repository: https://github.com/ajshovon/routspan
+issue_tracker: https://github.com/ajshovon/routspan/issues
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # HTTP + session cookies (the router API is cookie/session based)
+  dio: ^5.7.0
+  dio_cookie_manager: ^3.1.1
+  cookie_jar: ^4.0.8
+
+  # State management
+  flutter_riverpod: ^2.5.1
+
+  # Crypto for the ZTE login digest + AD anti-CSRF token
+  crypto: ^3.0.5
+
+  # Persistence
+  flutter_secure_storage: ^9.2.2
+  shared_preferences: ^2.3.2
+
+  # Formatting
+  intl: ^0.19.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  flutter_launcher_icons: ^0.14.4
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/logo/
+
+flutter_launcher_icons:
+  image_path: "assets/icon/app_icon.png"
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  background_color_ios: "#0A2540"
+  adaptive_icon_background: "assets/icon/app_icon_background.png"
+  adaptive_icon_foreground: "assets/icon/app_icon_foreground.png"
+  macos:
+    generate: true
+    image_path: "assets/icon/app_icon.png"

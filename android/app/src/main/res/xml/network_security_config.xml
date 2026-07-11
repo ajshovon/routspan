@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The router admin API is plain HTTP. Android blocks cleartext by default (API 28+),
+  so we permit it ONLY for the private LAN ranges a pocket router uses.
+  Referenced from AndroidManifest.xml via android:networkSecurityConfig.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false" />
+
+    <domain-config cleartextTrafficPermitted="true">
+        <!-- Common MiFi/router gateway addresses -->
+        <domain includeSubdomains="true">192.168.0.1</domain>
+        <domain includeSubdomains="true">192.168.1.1</domain>
+        <domain includeSubdomains="true">192.168.100.1</domain>
+        <domain includeSubdomains="true">192.168.8.1</domain>
+        <domain includeSubdomains="true">10.0.0.1</domain>
+    </domain-config>
+</network-security-config>

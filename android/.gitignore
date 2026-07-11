@@ -1,0 +1,15 @@
+/.gradle
+/captures/
+/local.properties
+GeneratedPluginRegistrant.java
+.cxx/
+
+# NOTE: the Gradle wrapper (gradlew, gradlew.bat, gradle-wrapper.jar) is
+# INTENTIONALLY NOT ignored — it must be committed so a fresh clone can build
+# without a pre-installed Gradle. Do not add it back here.
+
+# Remember to never publicly share your keystore.
+# See https://flutter.dev/to/reference-keystore
+key.properties
+**/*.keystore
+**/*.jks

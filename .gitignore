@@ -1,0 +1,54 @@
+# Flutter / Dart
+.dart_tool/
+.packages
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+
+# Per-arch debug APKs from tool/build_debug_apks.sh
+/dist/
+# NOTE: pubspec.lock is INTENTIONALLY committed (not ignored) — this is an
+# app, not a package, and Dart/Flutter guidance is that apps should check in
+# their lockfile for reproducible builds. Don't add it back here.
+
+# IDE / local agent tooling
+.idea/
+.vscode/
+.claude/
+*.iml
+
+# Generated platform folders (recreate with `flutter create .`)
+# Comment these out if you decide to commit the platform scaffolding.
+/ios/
+/linux/
+/macos/
+/windows/
+/web/
+
+# Android build artifacts / secrets
+android/.gradle/
+android/local.properties
+android/key.properties
+android/app/upload-keystore.jks
+*.keystore
+
+# OS
+.DS_Store
+
+# Dev-capture artifacts (may contain IMEI/phone numbers/SMS/passwords — never commit)
+.playwright-mcp
+screenshots
+curls.txt
+*.har
+
+# Design-asset archives already extracted into assets/ — keep the zip out of history
+/Routspanlogo.zip
+
+# Secrets — defensive, in case any of these are ever added
+.env
+.env.*
+*.pem
+*.p12
+*.key

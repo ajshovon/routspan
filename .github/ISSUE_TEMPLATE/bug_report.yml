@@ -1,0 +1,74 @@
+name: Bug report
+description: Something isn't working as expected
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Router firmware varies a lot between units,
+        so the more detail you give, the faster this can be fixed.
+
+  - type: input
+    id: router-model
+    attributes:
+      label: Router model
+      placeholder: e.g. OLAX M100
+    validations:
+      required: true
+
+  - type: input
+    id: firmware
+    attributes:
+      label: Firmware version
+      description: Device → About screen, or the router's own web UI → Advanced → Update.
+      placeholder: e.g. M100LSW1.1_FI_OLAX_SL_V01.01.02P42U28_07
+    validations:
+      required: false
+
+  - type: input
+    id: app-version
+    attributes:
+      label: App version
+      placeholder: e.g. 0.1.0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - Android
+        - iOS
+        - macOS
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, what happened instead?
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      description: >-
+        If you can reproduce it with `dart run tool/smoke_check.dart <host> <password>`,
+        paste the output here. **Redact your admin password, IMEI, phone number, and IMSI/ICCID
+        first** — these are personal data.
+      render: shell
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues and this isn't a duplicate.
+          required: true
+        - label: I removed any password, IMEI, phone number, or other personal data from this report.
+          required: true
