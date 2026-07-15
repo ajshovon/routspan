@@ -42,7 +42,7 @@ class SmsScreen extends ConsumerWidget {
                   : const Divider(height: 1, indent: 76),
               itemBuilder: (context, i) {
                 if (i == 0) {
-                  return _CapacityHeader(capacity: capacity.valueOrNull);
+                  return _CapacityHeader(capacity: capacity.value);
                 }
                 return _ConversationTile(
                   conversation: convos[i - 1],

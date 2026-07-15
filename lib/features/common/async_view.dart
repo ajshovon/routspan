@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+// Riverpod 3 exports ProviderOrFamily (accepted by ref.invalidate) from misc.dart.
+import 'package:flutter_riverpod/misc.dart';
 
 import 'package:routspan/core/errors.dart';
 

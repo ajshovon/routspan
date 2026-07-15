@@ -1,4 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+// Riverpod 3 moved StateProvider to the legacy import (see autoConnectAttemptedProvider).
+import 'package:flutter_riverpod/legacy.dart';
 
 import 'package:routspan/data/profile_store.dart';
 import 'package:routspan/data/router_profile.dart';
@@ -31,7 +33,7 @@ class ProfilesController extends AsyncNotifier<ProfilesState> {
         profiles: loaded.profiles, defaultId: loaded.defaultId);
   }
 
-  ProfilesState get _s => state.valueOrNull ?? const ProfilesState();
+  ProfilesState get _s => state.value ?? const ProfilesState();
 
   Future<RouterProfile> add({
     required String name,

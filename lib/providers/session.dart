@@ -36,9 +36,14 @@ class SessionState {
 
 /// Owns the connection lifecycle and the live [RouterRepository] instance.
 class SessionController extends Notifier<SessionState> {
+  // Mirror of the active repo, kept so onDispose can close it. Riverpod 3
+  // forbids reading `state` (a Ref op) inside lifecycle callbacks, so the
+  // dispose hook closes over this field instead of `state.repo`.
+  RouterRepository? _repo;
+
   @override
   SessionState build() {
-    ref.onDispose(() => state.repo?.dispose());
+    ref.onDispose(() => _repo?.dispose());
     return const SessionState();
   }
 
@@ -49,7 +54,8 @@ class SessionController extends Notifier<SessionState> {
     String? profileId,
     String? name,
   }) async {
-    state.repo?.dispose();
+    _repo?.dispose();
+    _repo = null;
     state = SessionState(
       status: ConnStatus.connecting,
       host: host,
@@ -63,6 +69,7 @@ class SessionController extends Notifier<SessionState> {
     );
     try {
       await repo.login(password);
+      _repo = repo;
       state = SessionState(
         status: ConnStatus.connected,
         repo: repo,
@@ -92,7 +99,8 @@ class SessionController extends Notifier<SessionState> {
   }
 
   void disconnect() {
-    state.repo?.dispose();
+    _repo?.dispose();
+    _repo = null;
     state = const SessionState();
   }
 }

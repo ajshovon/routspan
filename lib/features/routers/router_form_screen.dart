@@ -79,8 +79,8 @@ class _RouterFormScreenState extends ConsumerState<RouterFormScreen> {
   @override
   Widget build(BuildContext context) {
     final isCurrentDefault = _isEdit &&
-        ref.watch(profilesControllerProvider
-                .select((s) => s.valueOrNull?.defaultId)) ==
+        ref.watch(
+                profilesControllerProvider.select((s) => s.value?.defaultId)) ==
             widget.existing!.id;
 
     return Scaffold(
