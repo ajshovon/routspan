@@ -52,3 +52,5 @@ curls.txt
 *.pem
 *.p12
 *.key
+
+docs/internal
