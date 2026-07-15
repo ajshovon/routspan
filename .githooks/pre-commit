@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# Pre-commit: the fast gates, run before every commit so CI never catches
+# formatting/lint issues you could have caught locally. Mirrors the
+# "Verify formatting" + "Analyze" steps in .github/workflows/ci.yml.
+#
+# Installed via `tool/install-hooks.sh` (sets core.hooksPath=.githooks).
+# Bypass in a pinch with `git commit --no-verify` (CI will still enforce it).
+set -euo pipefail
+
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+repo_root="$(cd "$script_dir/.." && pwd)"
+cd "$repo_root"
+
+if ! command -v dart >/dev/null 2>&1; then
+  echo "pre-commit: dart not found on PATH — skipping (CI will still check)." >&2
+  exit 0
+fi
+
+# 1. Formatting — identical invocation to CI, so a green hook means a green CI.
+echo "pre-commit: checking formatting…"
+if ! dart format --output=none --set-exit-if-changed . >/dev/null; then
+  echo "" >&2
+  echo "✗ Code is not formatted. Fix with:" >&2
+  echo "    dart format ." >&2
+  echo "  then stage the changes and commit again." >&2
+  exit 1
+fi
+
+# 2. Static analysis.
+echo "pre-commit: analyzing…"
+if command -v flutter >/dev/null 2>&1; then
+  flutter analyze
+else
+  dart analyze
+fi
+
+echo "pre-commit: ✓ passed"

@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+# commit-msg: enforce Conventional Commits (https://www.conventionalcommits.org),
+# the style already used in this repo's history (feat:, fix:, chore:, …). Keeps
+# the log machine-readable so changelogs/release notes can be generated later.
+#
+# Format:  type(optional-scope)!: subject
+#   e.g.   feat(wifi): add 2.4/5GHz band switch
+#          fix: decode UTF-16BE SMS with odd length
+#          chore!: drop Android 6 support   (! = breaking change)
+#
+# Bypass in a pinch with `git commit --no-verify`.
+set -euo pipefail
+
+msg_file="$1"
+# First non-empty, non-comment line = the subject.
+subject="$(grep -vE '^\s*#' "$msg_file" | grep -vE '^\s*$' | head -n1 || true)"
+
+# Allow merge/revert/fixup commits git generates itself.
+case "$subject" in
+  "Merge "* | "Revert "* | "fixup!"* | "squash!"*) exit 0 ;;
+esac
+
+types='feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert'
+pattern="^(${types})(\([a-z0-9._/-]+\))?!?: .+"
+
+if ! printf '%s' "$subject" | grep -qE "$pattern"; then
+  cat >&2 <<EOF
+
+✗ Commit message doesn't follow Conventional Commits.
+
+  Got:      ${subject:-(empty)}
+  Expected: <type>(<optional scope>): <subject>
+  Types:    ${types//|/, }
+
+  Examples:
+    feat(sms): group inbox into conversations
+    fix: handle empty station_list from firmware
+    ci!: require Flutter 3.4+
+
+  (Bypass with --no-verify if you must.)
+EOF
+  exit 1
+fi
+
+# Nudge on overly long subjects (warn only — don't block).
+subject_len=${#subject}
+if [ "$subject_len" -gt 72 ]; then
+  echo "commit-msg: ⚠ subject is ${subject_len} chars (>72). Consider shortening." >&2
+fi

@@ -25,6 +25,24 @@ To add a router:
 3. Introduce a small factory that picks a driver from a saved "connection profile" (this is the
    point where we formalize the driver registry — keep it minimal).
 
+## Dev setup
+
+After cloning, install the git hooks once:
+
+```sh
+tool/install-hooks.sh
+```
+
+This points `core.hooksPath` at the version-controlled [`.githooks/`](.githooks/), so
+the same checks CI runs also run locally:
+
+- **pre-commit** — `dart format` check + `flutter analyze`
+- **pre-push** — `flutter test`
+- **commit-msg** — [Conventional Commits](https://www.conventionalcommits.org)
+  (`feat:`, `fix:`, `docs:`, `chore:`, …; append `!` for a breaking change)
+
+Bypass any hook with `--no-verify` if you must — CI enforces the same gates regardless.
+
 ## Code style
 
 - `flutter analyze` and `flutter test` must pass.

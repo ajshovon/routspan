@@ -68,7 +68,9 @@ class _HomeShellState extends ConsumerState<HomeShell> {
                 '${ref.watch(connectedDevicesProvider).valueOrNull?.length ?? 0}',
               ),
               isLabelVisible:
-                  (ref.watch(connectedDevicesProvider).valueOrNull?.length ?? 0) > 0,
+                  (ref.watch(connectedDevicesProvider).valueOrNull?.length ??
+                          0) >
+                      0,
               child: const Icon(Icons.wifi),
             ),
             label: 'WiFi',

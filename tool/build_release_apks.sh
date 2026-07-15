@@ -40,15 +40,15 @@ for abi in "${abis[@]}"; do
   esac
 done
 
-# Signing is only real if a release signingConfig is wired up. As shipped,
-# android/app/build.gradle.kts falls back to the debug keystore for release
-# builds (see the TODO there) — fine for sideloading/testing, NOT for
-# publishing to a store or handing out as a trusted "official" build.
-if grep -q 'signingConfigs.getByName("debug")' android/app/build.gradle.kts 2>/dev/null; then
-  echo "!! NOTE: release builds are currently signed with the DEBUG keystore"
-  echo "   (android/app/build.gradle.kts has a TODO to add a real release"
-  echo "   signingConfig). Fine for local testing; do not publish/distribute"
-  echo "   these as an official release until that's fixed."
+# Signing is only real if android/key.properties exists (see docs/internal/
+# release-and-cicd.md). Without it, build.gradle.kts falls back to the debug
+# keystore — fine for sideloading/testing, NOT for publishing or handing out as
+# a trusted "official" build.
+if [ ! -f android/key.properties ]; then
+  echo "!! NOTE: android/key.properties not found — release builds will be signed"
+  echo "   with the DEBUG keystore. Fine for local testing; create key.properties"
+  echo "   (see docs/internal/release-and-cicd.md) before distributing, or let the"
+  echo "   GitHub release workflow produce the signed, published APKs."
   echo ""
 fi
 

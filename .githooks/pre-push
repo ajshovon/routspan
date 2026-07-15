@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Pre-push: the slower gate. Runs the test suite before code leaves your
+# machine, mirroring the "Run tests" step in .github/workflows/ci.yml. Kept
+# out of pre-commit so day-to-day commits stay fast.
+#
+# Bypass in a pinch with `git push --no-verify` (CI will still enforce it).
+set -euo pipefail
+
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+repo_root="$(cd "$script_dir/.." && pwd)"
+cd "$repo_root"
+
+if ! command -v flutter >/dev/null 2>&1; then
+  echo "pre-push: flutter not found on PATH — skipping tests (CI will still run them)." >&2
+  exit 0
+fi
+
+echo "pre-push: running tests…"
+flutter test
+
+echo "pre-push: ✓ passed"
