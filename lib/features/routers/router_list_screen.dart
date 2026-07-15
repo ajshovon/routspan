@@ -21,7 +21,7 @@ class _RouterListScreenState extends ConsumerState<RouterListScreen> {
     super.initState();
     // Covers the case where profiles are already loaded on first mount.
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final s = ref.read(profilesControllerProvider).valueOrNull;
+      final s = ref.read(profilesControllerProvider).value;
       if (s != null) _maybeAutoConnect(s.defaultProfile);
     });
   }
@@ -151,7 +151,7 @@ class _RouterListScreenState extends ConsumerState<RouterListScreen> {
     // Auto-connect once profiles finish loading.
     ref.listen<AsyncValue<ProfilesState>>(profilesControllerProvider,
         (prev, next) {
-      final s = next.valueOrNull;
+      final s = next.value;
       if (s != null) _maybeAutoConnect(s.defaultProfile);
     });
     // Surface connection failures.

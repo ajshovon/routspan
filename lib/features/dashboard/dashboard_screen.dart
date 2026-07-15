@@ -90,7 +90,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   }
 
   Widget _mobileDataCard(AsyncValue<DeviceStatus> status) {
-    final wan = status.valueOrNull?.wan ?? WanState.unknown;
+    final wan = status.value?.wan ?? WanState.unknown;
     final on = wan == WanState.connected;
     final transitioning = _dataBusy ||
         wan == WanState.connecting ||
@@ -121,10 +121,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
             : Switch(
                 value: on,
                 // Don't allow toggling until we know the real state.
-                onChanged:
-                    (status.valueOrNull == null || wan == WanState.unknown)
-                        ? null
-                        : _toggleMobileData,
+                onChanged: (status.value == null || wan == WanState.unknown)
+                    ? null
+                    : _toggleMobileData,
               ),
       ),
     );

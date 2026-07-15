@@ -31,7 +31,7 @@ class _HomeShellState extends ConsumerState<HomeShell> {
   Widget build(BuildContext context) {
     final label = ref.watch(sessionControllerProvider.select((s) => s.label));
     // The dashboard keeps statusProvider warm; reuse its unread count for the badge.
-    final unread = ref.watch(statusProvider).valueOrNull?.unreadSms ?? 0;
+    final unread = ref.watch(statusProvider).value?.unreadSms ?? 0;
 
     return Scaffold(
       appBar: AppBar(
@@ -65,12 +65,10 @@ class _HomeShellState extends ConsumerState<HomeShell> {
               backgroundColor: Theme.of(context).colorScheme.primary,
               textColor: Theme.of(context).colorScheme.onPrimary,
               label: Text(
-                '${ref.watch(connectedDevicesProvider).valueOrNull?.length ?? 0}',
+                '${ref.watch(connectedDevicesProvider).value?.length ?? 0}',
               ),
               isLabelVisible:
-                  (ref.watch(connectedDevicesProvider).valueOrNull?.length ??
-                          0) >
-                      0,
+                  (ref.watch(connectedDevicesProvider).value?.length ?? 0) > 0,
               child: const Icon(Icons.wifi),
             ),
             label: 'WiFi',

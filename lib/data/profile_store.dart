@@ -15,14 +15,14 @@ abstract class SecretStore {
 /// Default [SecretStore] backed by the platform keychain/keystore. All calls are
 /// wrapped so a secure-storage failure just means "no saved password".
 ///
-/// On macOS we use the legacy login keychain (`useDataProtectionKeyChain:
-/// false`); the default data-protection keychain needs a `keychain-access-groups`
+/// On macOS we use the legacy login keychain (`usesDataProtectionKeychain:
+/// false`); the data-protection keychain needs a `keychain-access-groups`
 /// entitlement, which requires a paid Apple developer certificate. Android/iOS
 /// are unaffected by this option.
 class SecureSecretStore implements SecretStore {
   const SecureSecretStore([
     this._storage = const FlutterSecureStorage(
-      mOptions: MacOsOptions(useDataProtectionKeyChain: false),
+      mOptions: MacOsOptions(usesDataProtectionKeychain: false),
     ),
   ]);
 
