@@ -6,6 +6,7 @@ import 'package:routspan/features/dashboard/dashboard_screen.dart';
 import 'package:routspan/features/device/device_screen.dart';
 import 'package:routspan/features/sms/sms_screen.dart';
 import 'package:routspan/features/wifi/wifi_screen.dart';
+import 'package:routspan/providers/features.dart';
 import 'package:routspan/providers/session.dart';
 
 class HomeShell extends ConsumerStatefulWidget {
@@ -59,7 +60,19 @@ class _HomeShellState extends ConsumerState<HomeShell> {
             ),
             label: 'SMS',
           ),
-          const NavigationDestination(icon: Icon(Icons.wifi), label: 'WiFi'),
+          NavigationDestination(
+            icon: Badge(
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              textColor: Theme.of(context).colorScheme.onPrimary,
+              label: Text(
+                '${ref.watch(connectedDevicesProvider).valueOrNull?.length ?? 0}',
+              ),
+              isLabelVisible:
+                  (ref.watch(connectedDevicesProvider).valueOrNull?.length ?? 0) > 0,
+              child: const Icon(Icons.wifi),
+            ),
+            label: 'WiFi',
+          ),
           const NavigationDestination(
               icon: Icon(Icons.tune), label: 'Advanced'),
           const NavigationDestination(
