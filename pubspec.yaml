@@ -1,7 +1,7 @@
 name: routspan
 description: "Routspan — open-source admin app for pocket/MiFi routers. First target: OLAX M100 (ZTE-lineage firmware)."
 publish_to: "none"
-version: 0.1.0+1
+version: 0.2.0+2
 homepage: https://github.com/ajshovon/routspan
 repository: https://github.com/ajshovon/routspan
 issue_tracker: https://github.com/ajshovon/routspan/issues
