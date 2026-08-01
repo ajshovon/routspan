@@ -15,7 +15,7 @@ dependencies:
 
   # HTTP + session cookies (the router API is cookie/session based)
   dio: ^5.7.0
-  dio_cookie_manager: ^3.1.1
+  dio_cookie_manager: ^3.5.0
   cookie_jar: ^4.0.8
 
   # State management
